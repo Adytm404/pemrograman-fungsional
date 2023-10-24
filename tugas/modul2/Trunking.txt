@@ -1,0 +1,70 @@
+Part 1. Configure VLANs
+
+1. rename semua vlan di setiap switch (vlan10-40,99,100)
+
+Part 2. Assign Ports to VLANs
+step 1 : 
+
+<SWITCH B>
+  int f0/1
+  switchport mode access
+  switchport access vlan 10
+  int f0/2
+  switchport mode access
+  switchport access vlan 20
+  int f0/3
+  switchport mode access
+  switchport access vlan 30
+
+<SWITCH C>
+  int f0/1
+  switchport mode access
+  switchport access vlan 10
+  int f0/2
+  switchport mode access
+  switchport access vlan 20
+  int f0/3
+  switchport mode access
+  switchport access vlan 30
+  int f0/4
+  switchport mode access
+  switchport access vlan 10
+
+step 2: 
+<SWITCH C>
+  int f0/4
+  mls qos trust cos
+  switchport voice vlan 40
+
+step 3:
+<IN ALL, EVERY SWITCH>
+  int vlan 99
+  ip add (according to the addressing table and their subnet)
+  no sh
+
+
+Part 3. Configure Static Trunking
+a. <SWITCH A>
+  int g0/1
+  switchport mode trunk
+  switchport nonegotiate
+  switchport trunk native vlan 100 
+
+   <SWITCH B>
+  int g0/1
+  switchport mode trunk
+  switchport nonegotiate
+  switchport trunk native vlan 100 
+
+
+Part 4. Configure Dynamic Trunking
+  <SWITCH A>
+  int g0/2
+  switchport trunk native vlan 100
+  switchport mode dynamic desirable
+
+  <SWITCH B>
+  int g0/2
+  switchport mode trunk
+  switchport trunk native vlan 100
+
