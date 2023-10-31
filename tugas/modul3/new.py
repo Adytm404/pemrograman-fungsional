@@ -130,7 +130,7 @@ def main():
         print(searchMovie(movies, choose))
         main()
     else:
-        print("bye.")
+        print("Terimakasih")
 
 
 if __name__ == "__main__":
