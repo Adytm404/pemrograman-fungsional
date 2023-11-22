@@ -1,4 +1,5 @@
 from functools import reduce
+
 movies = [
     {
         "title": "Parasite",
@@ -69,7 +70,7 @@ movies = [
 ]
  
 
-def sumByGenre(data):
+def byGenre(data):
     result = {}
     temp = set(movie["genre"] for movie in data)
     for genre in temp:
@@ -95,7 +96,7 @@ def averageRating(data):
     average_ratings = dict(map(average, temp))
     return average_ratings
     
-def maxRating(data):
+def topRating(data):
     maxValue = reduce(lambda x,y: x if x > y else y, (movie["rating"] for movie in data))
     return list(filter(lambda x: x["rating"] == maxValue, data))
 
@@ -111,23 +112,23 @@ def main():
     print("3. Menemukan film dengan rating tertinggi")
     print("4. Cari judul film untuk menampilkan informasi rating, tahun rilis, dan genre")
     print("5. Selesai")
-    choose = input("Masukkan nomor tugas (1/2/3/4/5) : ")
+    menu = input("Masukkan nomor tugas (1/2/3/4/5) : ")
     
-    if(choose == "1"):
+    if(menu == "1"):
         print("Jumlah Film berdasarkan Genre:\n")
-        print(sumByGenre(movies))
+        print(byGenre(movies))
         main()
-    elif(choose == "2"):
+    elif(menu == "2"):
         print("Rata - rata Rating film berdasarkan tahun rilis\n")
         print(averageRating(movies))
         main()
-    elif(choose == "3"):
+    elif(menu == "3"):
         print("Film dengan Rating Tertinggi:\n")
-        print(maxRating(movies))
+        print(topRating(movies))
         main()
-    elif(choose == "4"):
-        choose = input(str("Search by title : \n"))
-        print(searchMovie(movies, choose))
+    elif(menu == "4"):
+        film = input(str("Search by title : \n"))
+        print(searchMovie(movies, film))
         main()
     else:
         print("Terimakasih")
